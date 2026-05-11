@@ -16,7 +16,7 @@ namespace ControleEstoque.API.Models
         public string Email { get; set; }
 
         [Required]
-        public string SenhaHash { get; set; } // aplicar tamanho mínimo
+        public string SenhaHash { get; set; }
 
         [Required]
         public PerfilUsuario Perfil { get; set; }

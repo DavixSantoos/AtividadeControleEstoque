@@ -15,6 +15,7 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IContaReceberService, ContaReceberService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // encerra o erro de refer�ncia c�clica de objetos para o JSON
