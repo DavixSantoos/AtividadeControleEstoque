@@ -8,10 +8,12 @@ namespace ControleEstoque.API.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly AppDbContext _context;
+        private readonly IPasswordService _passwordService;
 
         public UsuarioService(AppDbContext context)
         {
             _context = context;
+            _passwordService = new PasswordService();
         }
 
         public async Task<UsuarioDto> RegistrarClienteAsync(CriarClienteDto dto)
@@ -20,7 +22,7 @@ namespace ControleEstoque.API.Services
             {
                 Nome = dto.Nome,
                 Email = dto.Email,
-                SenhaHash = dto.Senha, // Sem criptografia nesta etapa inicial
+                SenhaHash = _passwordService.HashPassword(dto.Senha),
                 CPF = dto.CPF,
                 Perfil = PerfilUsuario.Cliente
             };
@@ -36,7 +38,7 @@ namespace ControleEstoque.API.Services
             {
                 Nome = dto.Nome,
                 Email = dto.Email,
-                SenhaHash = dto.Senha,
+                SenhaHash = _passwordService.HashPassword(dto.Senha),
                 Turno = dto.Turno,
                 Perfil = PerfilUsuario.Caixa
             };
