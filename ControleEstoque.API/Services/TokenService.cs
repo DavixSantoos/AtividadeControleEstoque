@@ -21,7 +21,7 @@ namespace ControleEstoque.API.Services
             var tokenHandler = new JwtSecurityTokenHandler();
 
             // Verifica se a chave existe no appsettings.json para não dar erro de nulo
-            var keyString = _configuration["Jwt:Key"] ?? "Chave_Super_Secreta_De_Teste_32_Chars";
+            var keyString = _configuration["Jwt:Key"] ?? "r8fGMkVlDZwA5reYsFqMoeHyKHvc6iYW75R2Sm3JP0PbD4pWB6WurgUy73TH1Ur0";
             var key = Encoding.ASCII.GetBytes(keyString);
 
             var tokenDescriptor = new SecurityTokenDescriptor
