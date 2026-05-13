@@ -6,12 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-// 1. PRIMEIRO criamos o builder
 var builder = WebApplication.CreateBuilder(args);
 
 
-// 2. DEPOIS configuramos a chave e o JWT (usando o builder que já existe)
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "ChaveSegurancaDePeloMenos32Caracteres");
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "r8fGMkVlDZwA5reYsFqMoeHyKHvc6iYW75R2Sm3JP0PbD4pWB6WurgUy73TH1Ur0");
 
 builder.Services.AddAuthentication(x =>
 {
@@ -31,7 +29,6 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-// 3. Configurações de Banco e outros Services
 
 // "Server=(localdb)\\mssqllocaldb;Database=ControleEstoqueDB;Trusted_Connection=True;"
 builder.Services.AddDbContext<AppDbContext>(opt
