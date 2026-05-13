@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 // 1. PRIMEIRO criamos o builder
 var builder = WebApplication.CreateBuilder(args);
 
+
 // 2. DEPOIS configuramos a chave e o JWT (usando o builder que já existe)
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "ChaveSegurancaDePeloMenos32Caracteres");
 
@@ -31,40 +32,43 @@ builder.Services.AddAuthentication(x =>
 });
 
 // 3. Configurações de Banco e outros Services
+
+// "Server=(localdb)\\mssqllocaldb;Database=ControleEstoqueDB;Trusted_Connection=True;"
+
 builder.Services.AddDbContext<AppDbContext>(opt
     => opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IContaReceberService, ContaReceberService>();
-builder.Services.AddScoped<ITokenService, TokenService>(); // Seu serviço aqui!
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+builder.Services.AddControllers().AddJsonOptions(options => 
+    {
+        // encerra o erro de referência cíclica de objetos para o JSON
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-// 4. BUILD (Transforma o builder no app)
-var app = builder.Build();
+ 
+    var app = builder.Build();
 
-// 5. Middlewares (Configuração de execução)
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-// A ordem aqui é sagrada: Autenticação ANTES de Autorização
-app.UseAuthentication();
-app.UseAuthorization();
+    app.UseAuthentication();
 
-app.MapControllers();
+    app.UseAuthorization();
 
-app.Run();
+    app.MapControllers();
+
+    app.Run();
