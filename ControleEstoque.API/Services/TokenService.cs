@@ -15,12 +15,12 @@ namespace ControleEstoque.API.Services
             _configuration = configuration;
         }
 
-        // Alterado de 'Id Id' para 'Usuario user' (ou o nome da sua classe de modelo)
+       
         public string GenerateToken(string id, string email)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            // Verifica se a chave existe no appsettings.json para não dar erro de nulo
+            
             var keyString = _configuration["Jwt:Key"] ?? "r8fGMkVlDZwA5reYsFqMoeHyKHvc6iYW75R2Sm3JP0PbD4pWB6WurgUy73TH1Ur0";
             var key = Encoding.ASCII.GetBytes(keyString);
 
