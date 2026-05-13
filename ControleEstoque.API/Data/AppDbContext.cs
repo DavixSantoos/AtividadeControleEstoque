@@ -19,6 +19,7 @@ namespace ControleEstoque.API.Data
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemPedido> ItensPedido { get; set; }
         public DbSet<ContaReceber> ContasReceber { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

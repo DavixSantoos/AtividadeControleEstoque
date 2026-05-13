@@ -9,5 +9,6 @@ namespace ControleEstoque.API.Services
         Task<UsuarioDto> RegistrarGerenteAsync(CriarGerenteDto dto);
         Task<IEnumerable<UsuarioDto>> ListarTodosUsuariosAsync();
         Task<UsuarioDto?> ObterUsuarioPorEmailAsync(string email);
+        object BuscarPorEmail(object email);
     }
 }
